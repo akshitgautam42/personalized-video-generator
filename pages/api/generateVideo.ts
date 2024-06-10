@@ -8,8 +8,8 @@ sdk.auth(process.env.SYNTHESIA_API_KEY || "");
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY || "" });
 
-export default async function handler(req:any, res:any) {
-  const { companyInfo, productInfo, targetGroup } = req.body;
+export default async function handler(req: any, res: any) {
+  const { companyInfo, productInfo, targetGroup, userId } = req.body;
 
   try {
     // Generate the script using OpenAI
@@ -52,10 +52,11 @@ export default async function handler(req:any, res:any) {
       title: productInfo,
       description: `${productInfo} advertisement`,
       soundtrack: "modern",
+      callbackId: userId,
     });
 
     res.status(200).json({ success: true, videoId: synthesiaResponse.data.id });
-  } catch (error:any) {
+  } catch (error: any) {
     console.error("Error generating video:", error);
     res.status(500).json({ success: false, error: error.message });
   }

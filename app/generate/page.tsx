@@ -35,6 +35,7 @@ function Generate() {
         companyInfo,
         productInfo,
         targetGroup,
+        userId
       });
       if (response.data.success) {
         setVideoId(response.data.videoId);
