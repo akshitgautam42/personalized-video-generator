@@ -78,40 +78,40 @@ const VideoPage: React.FC = () => {
             {isLoading ? (
               <Loading statusMessage={statusMessage} progress={0} />
             ) : (
-                <div>
-                 <h2 className="text-3xl font-bold mb-4">Get all you Videos here ...</h2>
-              <div className="container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4 md:px-6">
-                {videos.map((video) => (
-                  <div
-                    key={video.id}
-                    className="group rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all"
-                  >
-                    <VideoPlayerWithControls
-                      videoUrl={video.download}
-                      downloadVideo={() => downloadVideo(video.download)}
-                      copyToClipboard={() => copyToClipboard(video.download)}
-                    />
-                    <div className="p-4 bg-white dark:bg-gray-950">
-                      <h3 className="text-lg font-bold line-clamp-2">
-                        {video.title}
-                      </h3>
-                      <p className="text-gray-500 dark:text-gray-400 line-clamp-2">
-                        {video.description}
-                      </p>
+              <div>
+                <h2 className="text-3xl font-bold mb-4">
+                  Browse all your generated Videos here ...
+                </h2>
+                <div className="container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4 md:px-6">
+                  {videos.map((video) => (
+                    <div
+                      key={video.id}
+                      className="group rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all"
+                    >
+                      <VideoPlayerWithControls
+                        videoUrl={video.download}
+                        downloadVideo={() => downloadVideo(video.download)}
+                        copyToClipboard={() => copyToClipboard(video.download)}
+                      />
+                      <div className="p-4 bg-white dark:bg-gray-950">
+                        <h3 className="text-lg font-bold line-clamp-2">
+                          {video.title}
+                        </h3>
+                        <p className="text-gray-500 dark:text-gray-400 line-clamp-2">
+                          {video.description}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
               </div>
             )}
           </SignedIn>
         </div>
       </main>
-      
+
       <Footer />
     </div>
-    
-    
   );
 };
 

@@ -18,7 +18,7 @@ const getVideoList = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const allVideos = response?.data?.videos;
     const filteredVideos = allVideos.filter(
-      (video: any) => video.callbackId === userId
+      (video: any) => video.callbackId === userId && video.status == "complete"
     );
 
     res.status(200).json({
