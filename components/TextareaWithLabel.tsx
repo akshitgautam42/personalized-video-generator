@@ -1,7 +1,24 @@
+import React from 'react';
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 
-const TextareaWithLabel = ({ id, label, value, onChange, placeholder, required }) => (
+interface TextareaWithLabelProps {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  placeholder?: string;
+  required?: boolean;
+}
+
+const TextareaWithLabel: React.FC<TextareaWithLabelProps> = ({ 
+  id, 
+  label, 
+  value, 
+  onChange, 
+  placeholder = "", 
+  required = false 
+}) => (
   <div className="mb-4">
     <Label htmlFor={id}>{label}</Label>
     <Textarea

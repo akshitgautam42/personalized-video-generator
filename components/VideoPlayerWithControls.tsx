@@ -1,15 +1,22 @@
-import ReactPlayer from "react-player";
-import { Button } from "@/components/ui/button";
-import { CopyIcon } from "@/components/Icons/CopyIcon";
-import { DownloadIcon } from "@/components/Icons/DownloadIcon";
+import React from 'react';
+import ReactPlayer from 'react-player';
+import { Button } from '@/components/ui/button';
+import { CopyIcon } from '@/components/Icons/CopyIcon';
+import { DownloadIcon } from '@/components/Icons/DownloadIcon';
 
-const VideoPlayerWithControls = ({
+interface VideoPlayerWithControlsProps {
+  videoUrl: string;
+  downloadVideo: () => void;
+  copyToClipboard: () => void;
+}
+
+const VideoPlayerWithControls: React.FC<VideoPlayerWithControlsProps> = ({
   videoUrl,
   downloadVideo,
   copyToClipboard,
 }) => (
   <div className="mt-4 flex flex-col items-center gap-8">
-    <div className="mx-auto ">
+    <div className="mx-auto">
       <ReactPlayer url={videoUrl} controls width="100%" height="100%" />
     </div>
     <div className="flex gap-8 px-2">
