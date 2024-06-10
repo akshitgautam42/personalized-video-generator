@@ -1,9 +1,12 @@
-const videoDataStore: any = {};
+// lib/videoData.js
+import Cookies from "js-cookie";
 
-export const storeVideoData = (id: any, data: any) => {
-  videoDataStore[id] = data;
-};
+// Store video data in cookies
+export function storeVideoData(videoId: any, videoData: any) {
+  Cookies.set(`videoData-${videoId}`, videoData, { expires: 7 }); // Expires in 7 days
+}
 
-export const getVideoData = (id: any) => {
-  return videoDataStore[id];
-};
+// Get video data from cookies
+export function getVideoData(videoId: any) {
+  return Cookies.get(`videoData-${videoId}`);
+}
