@@ -10,7 +10,7 @@ const Header = () => (
       </div>
       <nav>
         <SignedIn>
-          <UserButton />
+        <UserButton />
         </SignedIn>
       </nav>
     </div>

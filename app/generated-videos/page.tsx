@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import PlayIcon from "@/components/Icons/PlayIcon";
+import Image from "next/image";
 
 export default function GeneratedVideos() {
   return (
@@ -30,7 +31,7 @@ export default function GeneratedVideos() {
                 >
                   <span className="sr-only">Watch Video</span>
                 </Link>
-                <img
+                <Image
                   src={video.thumbnail}
                   alt="Video Thumbnail"
                   width={300}

@@ -1,7 +1,18 @@
+import React from "react";
 import TextareaWithLabel from "@/components/TextareaWithLabel";
 import { Button } from "@/components/ui/button";
 
-const Form = ({
+interface FormProps {
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  companyInfo: string;
+  setCompanyInfo: React.Dispatch<React.SetStateAction<string>>;
+  productInfo: string;
+  setProductInfo: React.Dispatch<React.SetStateAction<string>>;
+  targetGroup: string;
+  setTargetGroup: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const Form: React.FC<FormProps> = ({
   handleSubmit,
   companyInfo,
   setCompanyInfo,
@@ -18,7 +29,7 @@ const Form = ({
       id="company-info"
       label="Company Information"
       value={companyInfo}
-      onChange={(e) => setCompanyInfo(e.target.value)}
+      onChange={(e:any) => setCompanyInfo(e.target.value)}
       placeholder="Tell us about your company..."
       required
     />
@@ -26,7 +37,7 @@ const Form = ({
       id="product-info"
       label="Product Information"
       value={productInfo}
-      onChange={(e) => setProductInfo(e.target.value)}
+      onChange={(e:any) => setProductInfo(e.target.value)}
       placeholder="Describe your product or service..."
       required
     />
@@ -34,7 +45,7 @@ const Form = ({
       id="target-group"
       label="Target Group Profile"
       value={targetGroup}
-      onChange={(e) => setTargetGroup(e.target.value)}
+      onChange={(e:any) => setTargetGroup(e.target.value)}
       placeholder="Who are you trying to reach?"
       required
     />

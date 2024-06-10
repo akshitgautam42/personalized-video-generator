@@ -15,7 +15,7 @@ export default async function handler(req:any, res:any) {
 
     if (type === "video.completed" && data.status === "complete") {
       const { id, download } = data;
-
+        console.log(id,download);
       // Update video download URL using the imported function
       await updateVideoDownloadUrl(id, download);
 
