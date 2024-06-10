@@ -21,7 +21,7 @@ function VideoPage() {
 
     try {
       const response = await axios.get(`/api/retrieveVideo?videoId=${videoId}`);
-      if (response.data.success) {
+      if (response?.data?.success) {
         const { videoData } = response.data;
         setVideoUrl(videoData);
         setStatusMessage("Video URL fetched successfully.");
@@ -33,17 +33,22 @@ function VideoPage() {
         incrementProgress(); // Increment progress if video is still processing
         return false; // Indicate that the video is still processing
       }
-    } catch (error) {
-      console.error("Error checking video status:", error);
-      setStatusMessage("Error retrieving video data.");
-      setIsGenerating(false); // Stop loader on error
-      return false; // Indicate that an error occurred
+    } catch (error: any) {
+      if (error.response && error.response.status === 404) {
+        setStatusMessage("Video is still processing...");
+        incrementProgress(); // Increment progress if video is still processing
+      } else {
+        console.error("Error checking video status:", error);
+        setStatusMessage("Error retrieving video data.");
+        setIsGenerating(false); // Stop loader on non-404 error
+      }
+      return false; // Indicate that the video is still processing or an error occurred
     }
   }, [videoId]);
 
   useEffect(() => {
     if (videoId) {
-      let interval:any;
+      let interval: any;
       const checkAndSetInterval = async () => {
         const isVideoReady = await checkVideoStatus();
         if (!isVideoReady) {
