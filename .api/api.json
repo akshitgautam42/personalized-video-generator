@@ -1,0 +1,11 @@
+{
+  "version": "1.0",
+  "apis": [
+    {
+      "identifier": "synthesia",
+      "source": "@synthesia/v2.0#16amyjflwrxcz4x",
+      "integrity": "sha512-tyVUhLwjz1MlixJraaontNMnqu3WUmAghw+U8dfxF+bcC0MfU1DNPVssuyj80NJNVOn0GWFEB596q1kNFha4WA==",
+      "installerVersion": "6.1.1"
+    }
+  ]
+}

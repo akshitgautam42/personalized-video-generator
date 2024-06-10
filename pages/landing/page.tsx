@@ -1,17 +1,13 @@
 "use client";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useRouter } from "next/navigation";
-import { useAuth, SignedIn, SignedOut } from "@clerk/nextjs";
 import Header from "@/components/Header";
 import Form from "@/components/Form";
 import Loading from "@/components/Loading";
 import VideoPlayerWithControls from "@/components/VideoPlayerWithControls";
 import Footer from "@/components/Footer";
 
-function Home() {
-  const { isLoaded, userId } = useAuth();
-  const router = useRouter();
+export default function Home() {
   const [companyInfo, setCompanyInfo] = useState("");
   const [productInfo, setProductInfo] = useState("");
   const [targetGroup, setTargetGroup] = useState("");
@@ -20,12 +16,6 @@ function Home() {
   const [videoId, setVideoId] = useState(null);
   const [progress, setProgress] = useState(0);
   const [isGenerating, setIsGenerating] = useState(false);
-
-  useEffect(() => {
-    if (isLoaded && !userId) {
-      router.push("/login");
-    }
-  }, [isLoaded, userId, router]);
 
   useEffect(() => {
     if (videoId) {
@@ -56,9 +46,7 @@ function Home() {
         setStatusMessage("Failed to generate video.");
         setIsGenerating(false); // Hide loading progress bar
       }
-    } catch (error:any) {
-      console.error("Error generating video:", error?.message);
-      setStatusMessage("An error occurred while generating the video.");
+    } catch (error) {
       setIsGenerating(false); // Hide loading progress bar
     }
   };
@@ -81,7 +69,9 @@ function Home() {
         setStatusMessage("Video is still processing...");
         incrementProgress(); // Increment progress if video is still processing
       }
-    } catch (error) {}
+    } catch (error) {
+      // console.error("Error fetching video URL:", error?.message);
+    }
   };
 
   const downloadVideo = async () => {
@@ -117,48 +107,41 @@ function Home() {
       <Header />
       <main className="flex-1 py-12 px-4 md:px-8">
         <div className="container mx-auto max-w-3xl">
-          <SignedOut>
-            <p>Redirecting...</p>
-          </SignedOut>
-          <SignedIn>
-            <div className="mb-8">
-              <h2 className="text-3xl font-bold mb-4">
-                Create Stunning Videos in Minutes
-              </h2>
-              <p className="text-gray-600 leading-relaxed">
-                Our video generation tool makes it easy to create
-                professional-looking videos for your business. Simply provide
-                some information about your company, product, and target
-                audience, and we'll do the rest.
-              </p>
-            </div>
-            {!videoUrl ? (
-              !isGenerating ? (
-                <Form
-                  handleSubmit={handleSubmit}
-                  companyInfo={companyInfo}
-                  setCompanyInfo={setCompanyInfo}
-                  productInfo={productInfo}
-                  setProductInfo={setProductInfo}
-                  targetGroup={targetGroup}
-                  setTargetGroup={setTargetGroup}
-                />
-              ) : (
-                <Loading statusMessage={statusMessage} progress={progress} />
-              )
-            ) : (
-              <VideoPlayerWithControls
-                videoUrl={videoUrl}
-                downloadVideo={downloadVideo}
-                copyToClipboard={copyToClipboard}
+          <div className="mb-8">
+            <h2 className="text-3xl font-bold mb-4">
+              Create Stunning Videos in Minutes
+            </h2>
+            <p className="text-gray-600 leading-relaxed">
+              Our video generation tool makes it easy to create
+              professional-looking videos for your business. Simply provide some
+              information about your company, product, and target audience, and
+              we'll do the rest.
+            </p>
+          </div>
+          {!videoUrl ? (
+            !isGenerating ? (
+              <Form
+                handleSubmit={handleSubmit}
+                companyInfo={companyInfo}
+                setCompanyInfo={setCompanyInfo}
+                productInfo={productInfo}
+                setProductInfo={setProductInfo}
+                targetGroup={targetGroup}
+                setTargetGroup={setTargetGroup}
               />
-            )}
-          </SignedIn>
+            ) : (
+              <Loading statusMessage={statusMessage} progress={progress} />
+            )
+          ) : (
+            <VideoPlayerWithControls
+              videoUrl={videoUrl}
+              downloadVideo={downloadVideo}
+              copyToClipboard={copyToClipboard}
+            />
+          )}
         </div>
       </main>
       <Footer />
     </div>
   );
 }
-
-export default Home;
